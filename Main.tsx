@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator();
 export default function Main() {
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="Home" backBehavior="order">
+      <Tab.Navigator initialRouteName="Home" backBehavior="history">
         <Tab.Screen
           name="Home"
           component={HomeScreen}
