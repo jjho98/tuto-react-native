@@ -7,8 +7,12 @@ const CategoryList = ({ navigation }) => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const result = await getCategories();
-      setCategories(result.data);
+      try {
+        const result = await getCategories();
+        setCategories(result.data);
+      } catch (err) {
+        console.error(err);
+      }
     };
     fetchCategories();
   }, []);
@@ -19,7 +23,9 @@ const CategoryList = ({ navigation }) => {
         <TouchableOpacity
           key={item._id}
           style={styles.itemContainer}
-          onPress={() => navigation.navigate("Search")}
+          onPress={() =>
+            navigation.navigate("TutorialList", { category: item.engName })
+          }
         >
           <Text style={styles.emojiText}>{item.emoji}</Text>
           <Text style={styles.nameText}>{item.name}</Text>
@@ -38,8 +44,6 @@ const styles = StyleSheet.create({
   itemContainer: {
     padding: 10,
     borderColor: "black",
-    // borderWidth: 1,
-    // borderRadius: 10,
     flex: 1,
     flexBasis: "30%",
     alignItems: "center",

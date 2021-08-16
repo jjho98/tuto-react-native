@@ -1,7 +1,7 @@
 import "react-native-gesture-handler";
 // import { StatusBar } from "expo-status-bar";
 import React from "react";
-import Main from "./Main";
+import Main from "./navigations/MainTab";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import rootReducer from "./modules";

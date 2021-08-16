@@ -2,11 +2,11 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AntDesign } from "@expo/vector-icons";
-import HomeScreen from "./screens/HomeScreen";
-import BookMarkScreen from "./screens/BookMarkScreen";
-import SearchScreen from "./screens/SearchScreen";
-import PortfolioScreen from "./screens/PortfolioScreen";
-import ProfileScreen from "./screens/ProfileScreen";
+import BookMarkScreen from "../screens/BookMarkScreen";
+import SearchScreen from "../screens/SearchScreen";
+import PortfolioScreen from "../screens/PortfolioScreen";
+import ProfileScreen from "../screens/ProfileScreen";
+import HomeStack from "./HomeStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,7 +16,7 @@ export default function Main() {
       <Tab.Navigator initialRouteName="Home" backBehavior="history">
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={HomeStack}
           options={{
             title: "홈",
             tabBarIcon: ({ color, size }) => (
