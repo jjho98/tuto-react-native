@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { getCategories } from "../lib/api/category";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const CategoryList = ({ navigation }) => {
   const [categories, setCategories] = useState([]);
@@ -21,13 +22,13 @@ const CategoryList = ({ navigation }) => {
     <View style={styles.listContainer}>
       {categories.map((item) => (
         <TouchableOpacity
-          key={item._id}
+          key={item.engName}
           style={styles.itemContainer}
           onPress={() =>
             navigation.navigate("TutorialList", { category: item.engName })
           }
         >
-          <Text style={styles.emojiText}>{item.emoji}</Text>
+          <MaterialCommunityIcons name={item.icon} style={styles.icon} />
           <Text style={styles.nameText}>{item.name}</Text>
         </TouchableOpacity>
       ))}
@@ -42,10 +43,11 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   itemContainer: {
-    padding: 10,
+    padding: 15,
     borderColor: "black",
     flex: 1,
-    flexBasis: "30%",
+    flexGrow: 0,
+    flexBasis: "33%",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -53,10 +55,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "300",
   },
-  emojiText: {
+  icon: {
     fontSize: 50,
-    fontWeight: "300",
-    marginBottom: 1,
+    marginBottom: 10,
+    color: "#c681d4",
   },
 });
 
