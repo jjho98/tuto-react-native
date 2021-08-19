@@ -12,7 +12,7 @@ import Auth from "./navigations/AuthStack";
 import * as SecureStore from "expo-secure-store";
 import { login } from "./lib/api/auth";
 import { NavigationContainer } from "@react-navigation/native";
-import AuthContext from "./modules/aurthContext";
+import AuthContext from "./modules/AuthContext";
 
 export default function App() {
   const [state, dispatch] = useReducer(
@@ -37,11 +37,17 @@ export default function App() {
       signIn: async (email: string, password: string) => {
         try {
           // 로그인 요청 해서 토큰 받기
-          const { token } = await login(email, password);
-          // 비밀 저장소에 토큰 저장
-          await SecureStore.setItemAsync("access_token", token);
-          // state의 토큰 변경
-          dispatch({ type: "SET_TOKEN", token });
+          const res = await login(email, password);
+          if (res.token) {
+            const token = res.token;
+            // 비밀 저장소에 토큰 저장
+            await SecureStore.setItemAsync("access_token", token);
+            // state의 토큰 변경
+            dispatch({ type: "SET_TOKEN", token });
+          } else {
+            console.log(res);
+            alert(res);
+          }
         } catch (err) {
           // 토큰이 안 왔으면 = 로그인 성공 못 함
         }

@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
-import { View, Button, StyleSheet, Text } from "react-native";
+import { View, Button, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import color from "../lib/color";
 import commonStyle from "../lib/commonStyle";
-import AuthContext from "../modules/aurthContext";
+import AuthContext from "../modules/AuthContext";
 
 const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -14,7 +14,7 @@ const SignInScreen = ({ navigation }) => {
   return (
     <View style={commonStyle.screenCenter}>
       <Text style={commonStyle.welcome}>튜토에 오신 걸 환영합니다</Text>
-      <View style={commonStyle.width90}>
+      <View style={commonStyle.width80}>
         <TextInput
           placeholder="이메일"
           value={email}
@@ -29,15 +29,18 @@ const SignInScreen = ({ navigation }) => {
           style={commonStyle.input}
         />
         <View style={styles.btnGroup}>
-          <Button
-            title="로그인"
+          <TouchableOpacity
             onPress={() => signIn(email, password)}
-            color={color.primary}
-          />
-          <Button
-            title="회원가입"
+            style={[commonStyle.authBtn, styles.loginBtn]}
+          >
+            <Text style={commonStyle.authBtnText}>로그인</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() => navigation.navigate("SignUp")}
-          />
+            style={[commonStyle.authBtn, styles.joinBtn]}
+          >
+            <Text>회원가입</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -48,6 +51,13 @@ const styles = StyleSheet.create({
   btnGroup: {
     justifyContent: "space-between",
     height: 90,
+  },
+  loginBtn: {
+    backgroundColor: color.primary,
+  },
+  joinBtn: {
+    borderColor: color.primary,
+    borderWidth: 1,
   },
 });
 
