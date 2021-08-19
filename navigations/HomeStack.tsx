@@ -1,6 +1,5 @@
 import React from "react";
 
-import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import CategoryList from "../components/CategoryList";
 import TutorialList from "../components/TutorialList";

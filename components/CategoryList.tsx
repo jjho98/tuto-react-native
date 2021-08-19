@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   icon: {
     fontSize: 50,
     marginBottom: 10,
-    color: "#c681d4",
+    color: "#6747f5",
   },
 });
 
