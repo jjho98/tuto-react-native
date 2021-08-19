@@ -1,6 +1,4 @@
-import { StyleSheet } from "react-native";
-
-const commonStyle = StyleSheet.create({
+const commonStyle = {
   input: {
     borderWidth: 0.5,
     padding: 10,
@@ -33,6 +31,6 @@ const commonStyle = StyleSheet.create({
   marginVertical10: {
     marginVertical: 10,
   },
-});
+};
 
 export default commonStyle;

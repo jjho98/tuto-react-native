@@ -28,20 +28,18 @@ const SignInScreen = ({ navigation }) => {
           secureTextEntry
           style={commonStyle.input}
         />
-        <View style={styles.btnGroup}>
-          <TouchableOpacity
-            onPress={() => signIn(email, password)}
-            style={[commonStyle.authBtn, styles.loginBtn]}
-          >
-            <Text style={commonStyle.authBtnText}>로그인</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("SignUp")}
-            style={[commonStyle.authBtn, styles.joinBtn]}
-          >
-            <Text>회원가입</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          onPress={() => signIn(email, password)}
+          style={[commonStyle.authBtn, styles.loginBtn]}
+        >
+          <Text style={commonStyle.authBtnText}>로그인</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("SignUp")}
+          style={[commonStyle.authBtn, styles.joinBtn]}
+        >
+          <Text>회원가입</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -54,6 +52,7 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     backgroundColor: color.primary,
+    marginBottom: 15,
   },
   joinBtn: {
     borderColor: color.primary,
