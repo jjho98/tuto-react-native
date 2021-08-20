@@ -28,14 +28,9 @@ export default function App() {
     }
   );
 
-  const addTokenToHeader = useCallback((token) => {
-    // axios의 header authorization에 토큰 첨부
-    client.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  }, []);
-
   const changeTokenStateAndHeader = useCallback((token) => {
     // axios의 header authorization에 토큰 첨부
-    addTokenToHeader(token);
+    client.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     // state의 토큰 변경
     dispatch({ type: "SET_TOKEN", token });
   }, []);
