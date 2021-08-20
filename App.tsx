@@ -10,7 +10,7 @@ import React, {
 import Main from "./navigations/MainTab";
 import Auth from "./navigations/AuthStack";
 import * as SecureStore from "expo-secure-store";
-import { login } from "./lib/api/auth";
+import { login, register } from "./lib/api/auth";
 import { NavigationContainer } from "@react-navigation/native";
 import AuthContext from "./modules/AuthContext";
 import { Alert } from "react-native";
@@ -35,11 +35,11 @@ export default function App() {
 
   const authMethods = useMemo(
     () => ({
-      signIn: async (email: string, password: string) => {
+      signIn: async (formData: { email: string; password: string }) => {
         try {
           // 로그인 요청 해서 토큰 받기
-          const res = await login(email, password);
-          const token = res.token;
+          const res = await login(formData);
+          const token = res.data.token;
           // 비밀 저장소에 토큰 저장
           await SecureStore.setItemAsync("access_token", token);
           // state의 토큰 변경
@@ -57,7 +57,32 @@ export default function App() {
           }
         }
       },
-      signUp: async (email: string, password: string, nickname: string) => {},
+      signUp: async (formData: {
+        email: string;
+        password: string;
+        nickname: string;
+      }) => {
+        try {
+          const res = await register(formData);
+          console.log(res);
+          const token = res.data.token;
+          // 비밀 저장소에 토큰 저장
+          await SecureStore.setItemAsync("access_token", token);
+          // state의 토큰 변경
+          dispatch({ type: "SET_TOKEN", token });
+        } catch (err) {
+          console.log(err);
+          // 회원가입 실패 시
+          if (err.response.status != 500) {
+            Alert.alert(null, err.response.data.message);
+          } else {
+            Alert.alert(
+              null,
+              "예상치 못한 문제가 발생했습니다. 다음에 다시 시도해주세요"
+            );
+          }
+        }
+      },
     }),
     []
   );

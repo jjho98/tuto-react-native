@@ -31,6 +31,10 @@ const commonStyle = {
   marginVertical10: {
     marginVertical: 10,
   },
+  warningText: {
+    color: "red",
+    marginBottom: 5,
+  },
 };
 
 export default commonStyle;
