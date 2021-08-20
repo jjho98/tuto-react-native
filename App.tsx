@@ -28,6 +28,7 @@ export default function App() {
     }
   );
 
+  // 받은 access_token을 axios header에 첨부하고 state의 token 변경
   const changeTokenStateAndHeader = useCallback((token) => {
     // axios의 header authorization에 토큰 첨부
     client.defaults.headers.common["Authorization"] = `Bearer ${token}`;
