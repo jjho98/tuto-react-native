@@ -5,14 +5,19 @@ import { AntDesign } from "@expo/vector-icons";
 import BookMarkScreen from "../screens/BookMarkScreen";
 import SearchScreen from "../screens/SearchScreen";
 import PortfolioScreen from "../screens/PortfolioScreen";
-import ProfileScreen from "../screens/ProfileScreen";
 import HomeStack from "./HomeStack";
+import ProfileStack from "./ProfileStack";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
 
 export default function Main() {
   return (
-    <Tab.Navigator initialRouteName="Home" backBehavior="history">
+    <Tab.Navigator
+      initialRouteName="Home"
+      backBehavior="history"
+      screenOptions={{ headerShown: false }}
+    >
       <Tab.Screen
         name="Home"
         component={HomeStack}
@@ -56,7 +61,7 @@ export default function Main() {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={ProfileStack}
         options={{
           title: "마이페이지",
           tabBarIcon: ({ color, size }) => (

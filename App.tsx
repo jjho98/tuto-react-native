@@ -19,12 +19,23 @@ export default function App() {
             ...prevState,
             token: action.token,
           };
+        // case "SET_LOADING":
+        //   return {
+        //     ...prevState,
+        //     isLoading: true,
+        //   };
+        // case "FINISH_LOADING":
+        //   return {
+        //     ...prevState,
+        //     isLoading: false,
+        //   };
+        default:
+          return prevState;
       }
     },
     {
       // isLoading: true,
       token: null,
-      loginFailed: false,
     }
   );
 
