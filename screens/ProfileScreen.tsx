@@ -4,12 +4,18 @@ import { Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { getMyInfo } from "../lib/api/user";
 import commonStyle from "../lib/commonStyle";
+import { AntDesign } from "@expo/vector-icons";
+// import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import TempScreen from "./TempScreen";
+
+// const Tab = createMaterialTopTabNavigator();
 
 const ProfileScreen = ({ navigation }) => {
   const [myInfo, setMyInfo] = useState(null);
 
   // 시작할 때, 프로필 편집 화면에서 뒤로 왔을 때 fetch
   useEffect(() => {
+    // myInfo fetch
     const fetchMyInfo = async () => {
       try {
         const result = await getMyInfo();
@@ -18,8 +24,15 @@ const ProfileScreen = ({ navigation }) => {
         alert("예상치 못한 문제가 발생했습니다.");
       }
     };
+    // 프로필 편집 화면에서 뒤로 왔을 때 다시 fetch
+    const unsubscribe = navigation.addListener("focus", () => {
+      fetchMyInfo();
+    });
+    // 시작할 때 fetch
     fetchMyInfo();
-  });
+
+    return unsubscribe;
+  }, []);
 
   return (
     <ScrollView>
@@ -51,6 +64,29 @@ const ProfileScreen = ({ navigation }) => {
             }}
           />
 
+          {/* <Tab.Navigator>
+            <Tab.Screen
+              name="temp"
+              component={TempScreen}
+              options={{
+                tabBarShowLabel: false,
+                tabBarIcon: ({ forcused, color }) => {
+                  return <AntDesign name="switcher" size={25} color={color} />;
+                },
+              }}
+            />
+            <Tab.Screen
+              name="temp2"
+              component={TempScreen}
+              options={{
+                tabBarShowLabel: false,
+                tabBarIcon: ({ forcused, color }) => {
+                  return <AntDesign name="staro" size={25} color={color} />;
+                },
+              }}
+            />
+          </Tab.Navigator> */}
+
           <View>
             {/* 수강 중인 강좌 개수 */}
             <Text>수강중</Text>
@@ -59,8 +95,6 @@ const ProfileScreen = ({ navigation }) => {
           </View>
         </View>
       )}
-
-      {/* 로딩 완료 후 */}
     </ScrollView>
   );
 };
