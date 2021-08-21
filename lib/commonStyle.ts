@@ -1,4 +1,6 @@
-const commonStyle = {
+import { StyleSheet } from "react-native";
+
+const commonStyle = StyleSheet.create({
   input: {
     borderWidth: 0.5,
     padding: 10,
@@ -28,6 +30,13 @@ const commonStyle = {
   thumbnail: {
     resizeMode: "cover",
   },
+  avatar: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    resizeMode: "cover",
+    margin: 15,
+  },
   marginVertical10: {
     marginVertical: 10,
   },
@@ -35,6 +44,15 @@ const commonStyle = {
     color: "red",
     marginBottom: 5,
   },
-};
+  horizaontal: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  h1: {
+    fontSize: 20,
+    fontWeight: "700",
+  },
+});
 
 export default commonStyle;
