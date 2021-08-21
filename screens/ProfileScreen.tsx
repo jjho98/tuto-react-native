@@ -5,10 +5,10 @@ import { ScrollView } from "react-native-gesture-handler";
 import { getMyInfo } from "../lib/api/user";
 import commonStyle from "../lib/commonStyle";
 import { AntDesign } from "@expo/vector-icons";
-// import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import TempScreen from "./TempScreen";
 
-// const Tab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 const ProfileScreen = ({ navigation }) => {
   const [myInfo, setMyInfo] = useState(null);
@@ -24,13 +24,10 @@ const ProfileScreen = ({ navigation }) => {
         alert("예상치 못한 문제가 발생했습니다.");
       }
     };
-    // 프로필 편집 화면에서 뒤로 왔을 때 다시 fetch
+    // 스크린으로 이동 시 fetch
     const unsubscribe = navigation.addListener("focus", () => {
       fetchMyInfo();
     });
-    // 시작할 때 fetch
-    fetchMyInfo();
-
     return unsubscribe;
   }, []);
 
@@ -64,7 +61,7 @@ const ProfileScreen = ({ navigation }) => {
             }}
           />
 
-          {/* <Tab.Navigator>
+          <Tab.Navigator>
             <Tab.Screen
               name="temp"
               component={TempScreen}
@@ -85,7 +82,7 @@ const ProfileScreen = ({ navigation }) => {
                 },
               }}
             />
-          </Tab.Navigator> */}
+          </Tab.Navigator>
 
           <View>
             {/* 수강 중인 강좌 개수 */}
