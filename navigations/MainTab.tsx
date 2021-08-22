@@ -1,5 +1,4 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AntDesign } from "@expo/vector-icons";
 import BookMarkScreen from "../screens/BookMarkScreen";
@@ -7,7 +6,6 @@ import SearchScreen from "../screens/SearchScreen";
 import PortfolioScreen from "../screens/PortfolioScreen";
 import HomeStack from "./HomeStack";
 import ProfileStack from "./ProfileStack";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
 

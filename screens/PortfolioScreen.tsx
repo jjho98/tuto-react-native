@@ -1,14 +1,16 @@
-import React from "react";
-
-import { Text } from "react-native";
+import * as React from "react";
+import { View, Text } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
+import ProfileTab from "../navigations/ProfileTab";
 
-const HomeScreen = () => {
+export default function TabViewExample() {
   return (
-    <SafeAreaView>
-      <Text>내 작품들</Text>
-    </SafeAreaView>
+    <>
+      <View>
+        <Text>balalls</Text>
+      </View>
+      <ProfileTab />
+    </>
   );
-};
-
-export default HomeScreen;
+}

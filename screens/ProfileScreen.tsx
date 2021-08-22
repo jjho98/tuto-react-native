@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Image, Button, ActivityIndicator } from "react-native";
+import {
+  View,
+  Image,
+  Button,
+  ActivityIndicator,
+  Dimensions,
+} from "react-native";
 import { Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { getMyInfo } from "../lib/api/user";
@@ -7,6 +13,10 @@ import commonStyle from "../lib/commonStyle";
 import { AntDesign } from "@expo/vector-icons";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import TempScreen from "./TempScreen";
+import { SafeAreaView } from "react-native-safe-area-context";
+import ProfileTab from "../navigations/ProfileTab";
+import HomeScreen from "./BookMarkScreen";
+import SearchScreen from "./SearchScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -32,67 +42,69 @@ const ProfileScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <ScrollView>
-      {/* 데이터 가져오기 전에 로딩 표시 */}
-      {!myInfo ? (
-        <ActivityIndicator />
-      ) : (
-        <View>
-          <View style={commonStyle.horizaontal}>
-            {/* 썸네일 */}
-            {/* 썸네일 없으면 기본 icon 표시 */}
-            <Image
-              style={commonStyle.avatar}
-              source={{
-                uri: myInfo.thumbnail,
-              }}
-            />
-
-            {/* 닉네임 */}
-            <Text style={commonStyle.h1}>{myInfo.nickname}</Text>
-          </View>
-          {/* 전하는 메시지 */}
-          <Text style={{ margin: 10 }}>{myInfo.message}</Text>
-          <Button
-            title="프로필 수정"
-            onPress={() => {
-              // params에 myInfo 전달
-              navigation.navigate("ProfileEdit", { myInfo });
+    /* 데이터 가져오기 전에 로딩 표시 */
+    !myInfo ? (
+      <ActivityIndicator />
+    ) : (
+      <>
+        <View style={commonStyle.horizaontal}>
+          {/* 썸네일 */}
+          {/* 썸네일 없으면 기본 icon 표시 */}
+          <Image
+            style={commonStyle.avatar}
+            source={{
+              uri: myInfo.thumbnail,
             }}
           />
 
-          <Tab.Navigator>
-            <Tab.Screen
-              name="temp"
-              component={TempScreen}
-              options={{
-                tabBarShowLabel: false,
-                tabBarIcon: ({ forcused, color }) => {
-                  return <AntDesign name="switcher" size={25} color={color} />;
-                },
-              }}
-            />
-            <Tab.Screen
-              name="temp2"
-              component={TempScreen}
-              options={{
-                tabBarShowLabel: false,
-                tabBarIcon: ({ forcused, color }) => {
-                  return <AntDesign name="staro" size={25} color={color} />;
-                },
-              }}
-            />
-          </Tab.Navigator>
-
-          <View>
-            {/* 수강 중인 강좌 개수 */}
-            <Text>수강중</Text>
-            <Text>작품</Text>
-            <Text>강좌</Text>
-          </View>
+          {/* 닉네임 */}
+          <Text style={commonStyle.h1}>{myInfo.nickname}</Text>
         </View>
-      )}
-    </ScrollView>
+        {/* 전하는 메시지 */}
+        <Text style={{ margin: 10 }}>{myInfo.message}</Text>
+        <Button
+          title="프로필 수정"
+          onPress={() => {
+            // params에 myInfo 전달
+            navigation.navigate("ProfileEdit", { myInfo });
+          }}
+        />
+
+        {/* <ProfileTab /> */}
+        <Tab.Navigator>
+          <Tab.Screen
+            name="temp"
+            component={TempScreen}
+            options={{
+              tabBarShowLabel: false,
+              tabBarIcon: ({ forcused, color }) => {
+                return <AntDesign name="switcher" size={23} color={color} />;
+              },
+            }}
+          />
+          <Tab.Screen
+            name="temp2"
+            component={HomeScreen}
+            options={{
+              tabBarShowLabel: false,
+              tabBarIcon: ({ forcused, color }) => {
+                return <AntDesign name="staro" size={23} color={color} />;
+              },
+            }}
+          />
+          <Tab.Screen
+            name="temp3"
+            component={SearchScreen}
+            options={{
+              tabBarShowLabel: false,
+              tabBarIcon: ({ forcused, color }) => {
+                return <AntDesign name="videocamera" size={23} color={color} />;
+              },
+            }}
+          />
+        </Tab.Navigator>
+      </>
+    )
   );
 };
 

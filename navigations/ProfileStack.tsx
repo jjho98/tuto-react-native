@@ -10,7 +10,6 @@ const ProfileStack = () => {
     <Stack.Navigator>
       <Stack.Screen name="ProfileMain" component={ProfileScreen} />
       <Stack.Screen name="ProfileEdit" component={ProfileEditScreen} />
-      {/* 비밀번호 찾기 화면 */}
     </Stack.Navigator>
   );
 };

@@ -58,7 +58,6 @@ const commonStyle = StyleSheet.create({
     marginBottom: 5,
   },
   horizaontal: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
   },

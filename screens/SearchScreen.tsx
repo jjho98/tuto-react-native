@@ -2,8 +2,8 @@ import React from "react";
 
 import { Text } from "react-native";
 
-const HomeScreen = () => {
+const SearchScreen = () => {
   return <Text>검색 화면</Text>;
 };
 
-export default HomeScreen;
+export default SearchScreen;

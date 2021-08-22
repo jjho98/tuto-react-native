@@ -6,7 +6,6 @@ import commonStyle from "../lib/commonStyle";
 import * as ImagePicker from "expo-image-picker";
 import { changeMyInfo } from "../lib/api/user";
 import PrimaryLoading from "../components/PrimaryLoaing";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const ProfileEditScreen = ({ navigation, route }) => {
   // myInfo 관리
