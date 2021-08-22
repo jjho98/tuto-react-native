@@ -4,6 +4,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import TempScreen from "../screens/TempScreen";
 import SearchScreen from "../screens/SearchScreen";
+import PortfolioScreen from "../screens/PortfolioScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -15,8 +16,8 @@ const ProfileTab = () => {
       }}
     >
       <Tab.Screen
-        name="temp"
-        component={TempScreen}
+        name="PortfolioTab"
+        component={PortfolioScreen}
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ forcused, color }) => {

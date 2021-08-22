@@ -15,4 +15,10 @@ export const changeMyInfo = async (myInfo) => {
     console.log(err);
   }
 };
+
 export const getMyInfo = () => client.get("/users/me");
+
+// 내 작품 받아오기
+// ?page=x
+export const getMyPortfolios = (page: number) =>
+  client.get(`/users/me/portfolios?page=${page}`);
