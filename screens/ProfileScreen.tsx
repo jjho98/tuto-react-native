@@ -1,24 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Image,
-  Button,
-  ActivityIndicator,
-  Dimensions,
-} from "react-native";
+import { View, Image, Button, ActivityIndicator } from "react-native";
 import { Text } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
 import { getMyInfo } from "../lib/api/user";
 import commonStyle from "../lib/commonStyle";
-import { AntDesign } from "@expo/vector-icons";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import TempScreen from "./TempScreen";
-import { SafeAreaView } from "react-native-safe-area-context";
 import ProfileTab from "../navigations/ProfileTab";
-import HomeScreen from "./BookMarkScreen";
-import SearchScreen from "./SearchScreen";
-
-const Tab = createMaterialTopTabNavigator();
 
 const ProfileScreen = ({ navigation }) => {
   const [myInfo, setMyInfo] = useState(null);
@@ -70,39 +55,7 @@ const ProfileScreen = ({ navigation }) => {
           }}
         />
 
-        {/* <ProfileTab /> */}
-        <Tab.Navigator>
-          <Tab.Screen
-            name="temp"
-            component={TempScreen}
-            options={{
-              tabBarShowLabel: false,
-              tabBarIcon: ({ forcused, color }) => {
-                return <AntDesign name="switcher" size={23} color={color} />;
-              },
-            }}
-          />
-          <Tab.Screen
-            name="temp2"
-            component={HomeScreen}
-            options={{
-              tabBarShowLabel: false,
-              tabBarIcon: ({ forcused, color }) => {
-                return <AntDesign name="staro" size={23} color={color} />;
-              },
-            }}
-          />
-          <Tab.Screen
-            name="temp3"
-            component={SearchScreen}
-            options={{
-              tabBarShowLabel: false,
-              tabBarIcon: ({ forcused, color }) => {
-                return <AntDesign name="videocamera" size={23} color={color} />;
-              },
-            }}
-          />
-        </Tab.Navigator>
+        <ProfileTab />
       </>
     )
   );
