@@ -22,3 +22,8 @@ export const getMyInfo = () => client.get("/users/me");
 // ?page=x
 export const getMyPortfolios = (page: number) =>
   client.get(`/users/me/portfolios?page=${page}`);
+
+// 내가 올린 튜토리얼 받아오기
+// ?page=x
+export const getMyTutorials = (page: number) =>
+  client.get(`/users/me/tutorials?page=${page}`);

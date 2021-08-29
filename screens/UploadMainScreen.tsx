@@ -1,13 +1,11 @@
-import * as React from "react";
-import { useCallback, useMemo, useRef, useState } from "react";
-import { useEffect } from "react";
-import { View, Text, TouchableHighlight } from "react-native";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
-import PrimaryLoading from "../components/PrimaryLoaing";
-import { getMyPortfolios } from "../lib/api/user";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import { useState } from "react";
+import { Button, View, Text, TouchableHighlight } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
+import { getMyTutorials } from "../lib/api/user";
 import commonStyle from "../lib/commonStyle";
 
-const PortfolioScreen = () => {
+const UploadMainScreen = ({ navigation }) => {
   const [items, setItems] = useState([]);
   const page = useRef(0);
   const itemDount = useRef(100);
@@ -21,7 +19,7 @@ const PortfolioScreen = () => {
     }
     // 데이터 받아오기
     try {
-      const result = await getMyPortfolios(page.current);
+      const result = await getMyTutorials(page.current);
       const { count, rows } = result.data;
       // 카운트 변경
       itemDount.current = count;
@@ -46,33 +44,37 @@ const PortfolioScreen = () => {
     </TouchableHighlight>
   );
 
+  // 받아온 결과 비었으면
   const ListEmptyComponent = useMemo(
     () => (
       <View style={[commonStyle.screenCenter, { marginVertical: 30 }]}>
-        <Text style={commonStyle.h1}>아직 결과물이 하나도 없어요 😫</Text>
+        <Text style={commonStyle.h1}>
+          아직 올린 튜토리얼이 하나도 없어요 😫
+        </Text>
       </View>
     ),
     []
   );
 
-  // 쳐음에 호출 .. 필요?
-  // useEffect(() => {
-  //   fetchMyPortfolios();
-  // }, []);
-
-  return !items ? (
-    <PrimaryLoading />
-  ) : (
-    <FlatList
-      data={items}
-      renderItem={renderItem}
-      keyExtractor={(item, index) => item.id}
-      onEndReached={fetchMyPortfolios}
-      onEndReachedThreshold={1}
-      ListEmptyComponent={ListEmptyComponent}
-      progressViewOffset={1}
-    ></FlatList>
+  return (
+    <View style={commonStyle.marginVertical10}>
+      <Button
+        title="튜토리얼 업로드"
+        onPress={() => {
+          navigation.navigate("TutorialUpload");
+        }}
+      />
+      <FlatList
+        data={items}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => item.id}
+        onEndReached={fetchMyPortfolios}
+        onEndReachedThreshold={1}
+        // ListEmptyComponent={ListEmptyComponent}
+        progressViewOffset={1}
+      ></FlatList>
+    </View>
   );
 };
 
-export default PortfolioScreen;
+export default UploadMainScreen;

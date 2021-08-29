@@ -41,6 +41,8 @@ const commonStyle = StyleSheet.create({
     color: "white",
   },
   thumbnail: {
+    width: 100,
+    height: 100,
     resizeMode: "cover",
   },
   avatar: {
@@ -57,13 +59,29 @@ const commonStyle = StyleSheet.create({
     color: "red",
     marginBottom: 5,
   },
-  horizaontal: {
+  // 수평 아이템. 중앙 정렬
+  horizontal: {
     flexDirection: "row",
     alignItems: "center",
   },
   h1: {
     fontSize: 20,
     fontWeight: "700",
+    paddingVertical: 10,
+  },
+  padding20: {
+    padding: 20,
+  },
+  imageSelectBox: {
+    width: 100,
+    height: 100,
+    borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonGroup: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
   },
 });
 

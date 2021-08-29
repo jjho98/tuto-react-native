@@ -5,6 +5,9 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import TempScreen from "../screens/TempScreen";
 import SearchScreen from "../screens/SearchScreen";
 import PortfolioScreen from "../screens/PortfolioScreen";
+import UploadedTutorialScreen from "../screens/UploadMainScreen";
+import UploadStack from "./UploadStack";
+import UploadMainScreen from "../screens/UploadMainScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -36,8 +39,8 @@ const ProfileTab = () => {
         }}
       />
       <Tab.Screen
-        name="temp3"
-        component={SearchScreen}
+        name="TutorialTab"
+        component={UploadMainScreen}
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ forcused, color }) => {

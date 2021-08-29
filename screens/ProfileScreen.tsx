@@ -32,7 +32,7 @@ const ProfileScreen = ({ navigation }) => {
       <ActivityIndicator />
     ) : (
       <>
-        <View style={commonStyle.horizaontal}>
+        <View style={commonStyle.horizontal}>
           {/* 썸네일 */}
           {/* 썸네일 없으면 기본 icon 표시 */}
           <Image
