@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { View, Text, Image, Modal, Pressable } from "react-native";
+import { View, Text, Image, Modal, Button } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { getCategories } from "../lib/api/category";
 import PrimaryLoading from "../components/PrimaryLoaing";
@@ -21,6 +21,7 @@ import {
 } from "react-native-gesture-handler";
 import { WebView } from "react-native-webview";
 import * as Yup from "yup";
+import { createTutorial } from "../lib/api/tutorial";
 
 const TutorialUploadScreen = ({ navigation }) => {
   const [thumbnail, setThumbnail] = useState(null);
@@ -103,7 +104,7 @@ const TutorialUploadScreen = ({ navigation }) => {
   return !categories ? (
     <PrimaryLoading />
   ) : (
-    <ScrollView style={commonStyle.padding20}>
+    <ScrollView>
       <Formik
         initialValues={{
           title: "",
@@ -112,7 +113,16 @@ const TutorialUploadScreen = ({ navigation }) => {
           category_id: 1,
         }}
         validationSchema={TutorialSchema}
-        onSubmit={(values) => {}}
+        onSubmit={async (values) => {
+          try {
+            await createTutorial({ ...values, thumbnail });
+            alert("튜토리얼이 생성됐습니다");
+            navigation.goBack();
+          } catch (err) {
+            alert("예상치 못한 문제가 발생했습니다");
+            console.error(err);
+          }
+        }}
       >
         {({
           values,
@@ -122,7 +132,7 @@ const TutorialUploadScreen = ({ navigation }) => {
           isValid,
           isSubmitting,
         }) => (
-          <>
+          <View style={commonStyle.padding20}>
             {/* 카테고리 선택 */}
             <View style={commonStyle.marginVertical10}>
               <Text style={commonStyle.h1}>카테고리</Text>
@@ -199,7 +209,12 @@ const TutorialUploadScreen = ({ navigation }) => {
                 </TouchableOpacity>
               )}
             </View>
-          </>
+            <Button
+              title="등록"
+              onPress={handleSubmit}
+              disabled={isSubmitting || !isValid}
+            />
+          </View>
         )}
       </Formik>
     </ScrollView>

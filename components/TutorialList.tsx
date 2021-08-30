@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useRef } from "react";
 import { useEffect, useState } from "react";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { StyleSheet, TouchableOpacity, Image, View, Text } from "react-native";
@@ -11,7 +11,7 @@ const TutorialItem = ({ item: tutorial }) => {
   return (
     <TouchableOpacity style={styles.container}>
       <Image
-        source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }}
+        source={{ uri: tutorial.thumbnail }}
         style={{ width: 100, height: "100%", resizeMode: "cover" }}
       />
 
@@ -22,21 +22,21 @@ const TutorialItem = ({ item: tutorial }) => {
 
         <View style={[styles.rowContainer]}>
           <Image
-            source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }}
+            source={{ uri: tutorial.user.thumbnail }}
             style={{ width: 30, height: 30 }}
           />
-          <Text>{tutorial.tutor.nickname}</Text>
+          <Text>{tutorial.user.nickname}</Text>
         </View>
 
         <View style={styles.rowContainer}>
           <View style={[styles.rowContainer, styles.chip]}>
             <Ionicons name="play-circle-outline" size={24} color="black" />
-            <Text>{tutorial.lectures.length}</Text>
+            <Text>{tutorial.lectureCount}</Text>
           </View>
 
           <View style={[styles.rowContainer, styles.chip]}>
             <Ionicons name="people-outline" size={24} color="black" />
-            <Text>{convertNumber(tutorial.tutees.length)}</Text>
+            <Text>{convertNumber(tutorial.takingCount)}</Text>
           </View>
         </View>
       </View>
@@ -46,24 +46,41 @@ const TutorialItem = ({ item: tutorial }) => {
 
 const TutorialList = ({ navigation, route }) => {
   const [tutorials, setTutorials] = useState([]);
+  const page = useRef(0);
+  const isFetchedAll = useRef(false);
 
-  useEffect(() => {
-    const fetchTutorials = async () => {
-      try {
-        const result = await getTutorials(route.params.category);
-        setTutorials(result.data);
-      } catch (err) {
-        console.error(err);
+  const fetchMore = useCallback(async () => {
+    try {
+      // 더 가져올 데이터가 없으면
+      if (isFetchedAll.current) {
+        return;
       }
-    };
-    fetchTutorials();
+
+      const result = await getTutorials(route.params.category, page.current);
+      setTutorials((prev) => [...prev, ...result.data.rows]);
+      page.current += 1;
+      // 마지막에 가져온 데이터가 없으면
+      if (result.data.rows.length == 0) {
+        isFetchedAll.current = true;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [page]);
+
+  // 처음 fetch
+  useEffect(() => {
+    fetchMore();
   }, [route]);
 
   return (
+    // <></>
     <FlatList
       data={tutorials}
       renderItem={TutorialItem}
       keyExtractor={(item) => item._id}
+      onEndReached={() => fetchMore()}
+      onEndReachedThreshold={0.1}
     />
   );
 };
