@@ -3,6 +3,7 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import { useEffect } from "react";
 import { View, Text, TouchableHighlight } from "react-native";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
+import ListEmptyComponent from "../components/ListEmptyComponent";
 import PrimaryLoading from "../components/PrimaryLoaing";
 import { getMyPortfolios } from "../lib/api/user";
 import commonStyle from "../lib/commonStyle";
@@ -46,15 +47,6 @@ const PortfolioScreen = () => {
     </TouchableHighlight>
   );
 
-  const ListEmptyComponent = useMemo(
-    () => (
-      <View style={[commonStyle.screenCenter, { marginVertical: 30 }]}>
-        <Text style={commonStyle.h1}>아직 결과물이 하나도 없어요 😫</Text>
-      </View>
-    ),
-    []
-  );
-
   // 쳐음에 호출 .. 필요?
   // useEffect(() => {
   //   fetchMyPortfolios();
@@ -69,7 +61,9 @@ const PortfolioScreen = () => {
       keyExtractor={(item, index) => item.id}
       onEndReached={fetchMyPortfolios}
       onEndReachedThreshold={1}
-      ListEmptyComponent={ListEmptyComponent}
+      ListEmptyComponent={() => (
+        <ListEmptyComponent subject={"아직 결과물이"} />
+      )}
       progressViewOffset={1}
     ></FlatList>
   );

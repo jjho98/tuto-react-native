@@ -1,7 +1,10 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useMemo, useRef } from "react";
 import { useEffect, useState } from "react";
+import { View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { getTutorials } from "../lib/api/tutorial";
+import commonStyle from "../lib/commonStyle";
+import ListEmptyComponent from "./ListEmptyComponent";
 import TutorialItem from "./TutorialItem";
 
 const TutorialList = ({ navigation, route }) => {
@@ -41,6 +44,9 @@ const TutorialList = ({ navigation, route }) => {
       keyExtractor={(item) => item.id}
       onEndReached={() => fetchMore()}
       onEndReachedThreshold={0.1}
+      ListEmptyComponent={() => (
+        <ListEmptyComponent subject={"아직 올린 튜토리얼이"} />
+      )}
     />
   );
 };
