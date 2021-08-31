@@ -69,6 +69,10 @@ const commonStyle = StyleSheet.create({
     fontWeight: "700",
     paddingVertical: 10,
   },
+  h2: {
+    fontSize: 17,
+    fontWeight: "500",
+  },
   padding20: {
     padding: 20,
   },
@@ -82,6 +86,15 @@ const commonStyle = StyleSheet.create({
   buttonGroup: {
     flexDirection: "row",
     justifyContent: "space-evenly",
+  },
+  chip: {
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 5,
+    marginRight: 5,
+    padding: 2,
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 

@@ -5,6 +5,7 @@ import { StyleSheet, TouchableOpacity, Image, View, Text } from "react-native";
 import { getTutorials } from "../lib/api/tutorial";
 import { Ionicons } from "@expo/vector-icons";
 import { convertNumber } from "../lib/convertNumber";
+import commonStyle from "../lib/commonStyle";
 
 // item을 tutorial 변수로 받기
 const TutorialItem = ({ item: tutorial }) => {
@@ -17,7 +18,7 @@ const TutorialItem = ({ item: tutorial }) => {
 
       <View style={styles.contentContainer}>
         <View>
-          <Text style={styles.title}>{tutorial.title}</Text>
+          <Text style={commonStyle.h2}>{tutorial.title}</Text>
         </View>
 
         <View style={[styles.rowContainer]}>
@@ -29,12 +30,12 @@ const TutorialItem = ({ item: tutorial }) => {
         </View>
 
         <View style={styles.rowContainer}>
-          <View style={[styles.rowContainer, styles.chip]}>
+          <View style={commonStyle.chip}>
             <Ionicons name="play-circle-outline" size={24} color="black" />
             <Text>{tutorial.lectureCount}</Text>
           </View>
 
-          <View style={[styles.rowContainer, styles.chip]}>
+          <View style={commonStyle.chip}>
             <Ionicons name="people-outline" size={24} color="black" />
             <Text>{convertNumber(tutorial.takingCount)}</Text>
           </View>
@@ -59,8 +60,8 @@ const TutorialList = ({ navigation, route }) => {
       const result = await getTutorials(route.params.category, page.current);
       setTutorials((prev) => [...prev, ...result.data.rows]);
       page.current += 1;
-      // 마지막에 가져온 데이터가 없으면
-      if (result.data.rows.length == 0) {
+      // 마지막 데이터면
+      if (result.data.rows.length < 10) {
         isFetchedAll.current = true;
       }
     } catch (err) {
@@ -78,7 +79,7 @@ const TutorialList = ({ navigation, route }) => {
     <FlatList
       data={tutorials}
       renderItem={TutorialItem}
-      keyExtractor={(item) => item._id}
+      keyExtractor={(item) => item.id}
       onEndReached={() => fetchMore()}
       onEndReachedThreshold={0.1}
     />
@@ -87,29 +88,18 @@ const TutorialList = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   rowContainer: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 5,
+    marginVertical: 2,
   },
   contentContainer: {
-    marginHorizontal: 10,
-    padding: 5,
+    // marginHorizontal: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
   },
   container: {
-    flex: 1,
     flexDirection: "row",
     borderBottomWidth: 0.5,
-  },
-  chip: {
-    borderColor: "black",
-    borderWidth: 1,
-    borderRadius: 5,
-    flexGrow: 1,
-  },
-  title: {
-    fontSize: 17,
-    fontWeight: "500",
   },
 });
 
